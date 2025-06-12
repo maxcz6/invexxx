@@ -1,0 +1,229 @@
+:root {
+  --dorado: #FFD700;
+  --azul-medianoche: #1A2B3C;
+  --gris-plata: #C0C0C0;
+  --purpura: #8A2BE2;
+  --blanco: #F8F8F8;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 2rem;
+  background: var(--azul-medianoche);
+  color: var(--blanco);
+  min-height: 100vh;
+}
+
+h1, h2 {
+  text-align: center;
+  color: var(--dorado);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+form {
+  background: linear-gradient(145deg, rgba(26,43,60,0.9), rgba(26,43,60,0.7));
+  padding: 2rem;
+  margin: 2rem auto;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,215,0,0.1);
+  max-width: 500px;
+  transition: transform 0.3s ease;
+}
+
+form:hover {
+  transform: translateY(-5px);
+}
+
+input, select, button {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 2px solid var(--gris-plata);
+  background: rgba(248,248,248,0.05);
+  color: var(--blanco);
+  transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--dorado);
+  box-shadow: 0 0 10px rgba(255,215,0,0.3);
+}
+
+button {
+  background: var(--purpura);
+  color: var(--blanco);
+  border: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: var(--dorado);
+  box-shadow: 0 0 20px rgba(255,215,0,0.4);
+  transform: scale(1.02);
+}
+
+section {
+  background: linear-gradient(145deg, rgba(26,43,60,0.9), rgba(26,43,60,0.7));
+  padding: 2rem;
+  margin: 2rem auto;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,215,0,0.1);
+  max-width: 1200px;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+  margin-top: 20px;
+}
+
+th {
+  background: var(--azul-medianoche);
+  color: var(--dorado);
+  padding: 15px;
+  text-align: left;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  letter-spacing: 1px;
+}
+
+td {
+  background: rgba(248,248,248,0.05);
+  padding: 15px;
+  color: var(--blanco);
+  border-top: 1px solid rgba(255,215,0,0.1);
+  border-bottom: 1px solid rgba(255,215,0,0.1);
+  transition: all 0.3s ease;
+}
+
+tr:hover td {
+  background: rgba(248,248,248,0.1);
+  transform: scale(1.01);
+}
+
+td:first-child {
+  border-left: 1px solid rgba(255,215,0,0.1);
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+td:last-child {
+  border-right: 1px solid rgba(255,215,0,0.1);
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+/* Estilos para los botones de acción en la tabla */
+td button {
+  width: auto;
+  padding: 8px 16px;
+  margin: 0 4px;
+  font-size: 1em;
+  background: transparent;
+  border: 1px solid var(--purpura);
+}
+
+td button:hover {
+  background: var(--purpura);
+  border-color: var(--purpura);
+}
+
+/* Animaciones y efectos adicionales */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+form, section {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Estilos para mensajes de alerta personalizados */
+.alert {
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  background: rgba(138,43,226,0.2);
+  border: 1px solid var(--purpura);
+  color: var(--blanco);
+  text-align: center;
+}
+
+/* Agregar al final del archivo CSS existente */
+
+/* Diseño responsivo */
+@media screen and (max-width: 1200px) {
+  section {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  table {
+    font-size: 0.9em;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+
+  form {
+    margin: 1rem auto;
+    padding: 1.5rem;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  td button {
+    padding: 6px 12px;
+    font-size: 0.9em;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 1.8em;
+  }
+
+  h2 {
+    font-size: 1.4em;
+  }
+
+  form {
+    padding: 1rem;
+  }
+
+  input, select, button {
+    padding: 10px;
+    font-size: 0.9em;
+  }
+
+  td, th {
+    padding: 10px;
+    font-size: 0.85em;
+  }
+
+  .alert {
+    padding: 10px;
+    font-size: 0.9em;
+  }
+}

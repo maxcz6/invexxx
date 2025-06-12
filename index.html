@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestión de Inventario</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <h1>Gestión de Inventario</h1>
+
+  <form id="formAgregar">
+    <h2>Agregar Producto</h2>
+    <input type="text" id="producto" placeholder="Producto" required />
+    <input type="number" id="stock" placeholder="Stock" min="1" required />
+    <select id="categoria" required>
+      <option value="">Selecciona una categoría</option>
+      <option value="Alimentos">Alimentos</option>
+      <option value="Ropa">Ropa</option>
+      <option value="Tecnología">Tecnología</option>
+      <option value="Hogar">Hogar</option>
+      <option value="Otros">Otros</option>
+    </select>
+    <input type="number" id="precio_unit" placeholder="Precio Unitario" step="0.01" min="0" required />
+    <button type="submit">Agregar</button>
+  </form>
+
+  <form id="formEliminar">
+    <h2>Eliminar Producto</h2>
+    <input type="text" id="nombreEliminar" placeholder="Nombre del producto" required />
+    <button type="submit">Eliminar</button>
+  </form>
+
+  <section>
+    <h2>Inventario Completo</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID (ofuscado)</th>
+          <th>Producto</th>
+          <th>Stock</th>
+          <th>Categoría</th>
+          <th>Precio Unitario</th>
+          <th>Valor Total</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tablaInventario"></tbody>
+    </table>
+    
+  </section>
+
+<script src="index.js"></script>
+</body>
+</html>
