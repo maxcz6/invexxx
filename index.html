@@ -1,56 +1,138 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gestión de Inventario</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <link rel="stylesheet" href="cssinit.css">
-</head>
-<body>
-  <h1>Gestión de Inventario</h1>
 
-  <form id="formAgregar">
-    <h2>Agregar Producto</h2>
-    <input type="text" id="producto" placeholder="Producto" required />
-    <input type="number" id="stock" placeholder="Stock" min="1" required />
-    <select id="categoria" required>
-      <option value="">Selecciona una categoría</option>
-      <option value="Alimentos">Alimentos</option>
-      <option value="Ropa">Ropa</option>
-      <option value="Tecnología">Tecnología</option>
-      <option value="Hogar">Hogar</option>
-      <option value="Otros">Otros</option>
-    </select>
-    <input type="number" id="precio_unit" placeholder="Precio Unitario" step="0.01" min="0" required />
-    <button type="submit">Agregar</button>
-  </form>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Inventario</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <!-- Librerías necesarias para exportación -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <link rel="stylesheet" href="cssinit.css" />
+  </head>
 
-  <form id="formEliminar">
-    <h2>Eliminar Producto</h2>
-    <input type="text" id="nombreEliminar" placeholder="Nombre del producto" required />
-    <button type="submit">Eliminar</button>
-  </form>
+  <body>
+    <div class="container">
+      <h1><i class="fas fa-boxes"></i> Gestión de Inventario</h1>
 
-  <section>
-    <h2>Inventario Completo</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>ID (ofuscado)</th>
-          <th>Producto</th>
-          <th>Stock</th>
-          <th>Categoría</th>
-          <th>Precio Unitario</th>
-          <th>Valor Total</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody id="tablaInventario"></tbody>
-    </table>
-    
-  </section>
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card">
+          <span class="stat-number" id="totalProducts">0</span>
+          <span class="stat-label">Productos</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" id="totalStock">0</span>
+          <span class="stat-label">Stock Total</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" id="totalValue">S/. 0</span>
+          <span class="stat-label">Valor Total</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" id="lowStockItems">0</span>
+          <span class="stat-label">Stock Bajo</span>
+        </div>
+      </div>
 
-<script src="jsinit.js"></script>
-</body>
+      <div class="cards-container">
+        <div class="card">
+          <form id="formAgregar">
+            <h2><i class="fas fa-plus-circle"></i> Agregar Producto</h2>
+
+            <div class="form-group">
+              <label for="producto"><i class="fas fa-tag"></i> Producto</label>
+              <input type="text" id="producto" placeholder="Nombre del producto"
+                required />
+            </div>
+
+            <div class="form-group">
+              <label for="stock"><i class="fas fa-cubes"></i> Stock</label>
+              <input type="number" id="stock" placeholder="Cantidad en stock"
+                min="1" required />
+            </div>
+
+            <div class="form-group">
+              <label for="categoria"><i class="fas fa-list"></i>
+                Categoría</label>
+              <select id="categoria" required>
+                <option value>Selecciona una categoría</option>
+                <option value="Alimentos">🍎 Alimentos</option>
+                <option value="Ropa">👕 Ropa</option>
+                <option value="Tecnología">💻 Tecnología</option>
+                <option value="Hogar">🏠 Hogar</option>
+                <option value="Salud">💊 Salud</option>
+                <option value="Deportes">⚽ Deportes</option>
+                <option value="Libros">📚 Libros</option>
+                <option value="Otros">📦 Otros</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="precio_unit"><i class="fas fa-dollar-sign"></i> Precio
+                Unitario</label>
+              <input type="number" id="precio_unit" placeholder="0.00"
+                step="0.01" min="0" required />
+            </div>
+
+            <button type="submit" class="btn">
+              <span><i class="fas fa-save"></i> Agregar Producto</span>
+            </button>
+          </form>
+        </div>
+
+        <div class="card">
+          <form id="formEliminar">
+            <h2><i class="fas fa-trash-alt"></i> Eliminar Producto</h2>
+
+            <div class="form-group">
+              <label for="nombreEliminar"><i class="fas fa-search"></i> Buscar
+                Producto</label>
+              <input type="text" id="nombreEliminar"
+                placeholder="Nombre del producto a eliminar" required />
+            </div>
+
+            <button type="submit" class="btn btn-danger">
+              <span><i class="fas fa-trash"></i> Eliminar Producto</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <h2><i class="fas fa-clipboard-list"></i> Inventario Completo</h2>
+        <table>
+          <thead>
+            <tr>
+              <th><i class="fas fa-hashtag"></i> ID</th>
+              <th><i class="fas fa-tag"></i> Producto</th>
+              <th><i class="fas fa-cubes"></i> Stock</th>
+              <th><i class="fas fa-list"></i> Categoría</th>
+              <th><i class="fas fa-dollar-sign"></i> Precio Unit.</th>
+              <th><i class="fas fa-calculator"></i> Valor Total</th>
+              <th><i class="fas fa-cogs"></i> Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tablaInventario"></tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Botones de exportación -->
+    <div id="exportaciones" style="text-align: center; margin: 2rem auto;">
+      <button id="exportarExcel" style="margin-right: 10px;">📥 Exportar a
+        Excel</button>
+      <button id="exportarPDF">📄 Exportar a PDF</button>
+    </div>
+
+    <script src="jsinit.js"></script>
+    <script src="export.js"></script>
+
+  </body>
+
 </html>
